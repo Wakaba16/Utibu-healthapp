@@ -1,5 +1,6 @@
 package com.example.utib;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,17 +25,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         userManager = new UserManager(this);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = etUsername.getText().toString();
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
+        btnRegister.setOnClickListener(v -> {
+            String username = etUsername.getText().toString();
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
 
-                userManager.addUser(username, email, password);
-                Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                finish(); // Finish the activity and go back to login
-            }
+            userManager.addUser(username, email, password);
+            Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // Finish the RegisterActivity after navigating to LoginActivity
         });
     }
 }
